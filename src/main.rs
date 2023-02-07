@@ -3,7 +3,7 @@ use std::io;
 
 fn main() {
     let names_input = get_input();
-    let names = split_str(&names_input);
+    let names = split_str(&names_input, " ");
     let winner = pick_random_name(names);
     println!("{}", winner);
 }
@@ -14,12 +14,12 @@ fn get_input() -> String {
     input
 }
 
-fn split_str(str: &str) -> Vec<&str> {
-    str.split(' ').collect()
+fn split_str<'a>(str: &'a str, separator: &'a str) -> Vec<&'a str> {
+    str.split(separator).collect()
 }
 
 fn pick_random_name(names: Vec<&str>) -> &str {
-    names[gen_random_number(names.len() as f64)]
+    names[gen_random_number((names.len() - 1) as f64)]
 }
 
 fn gen_random_number(limit: f64) -> usize {
